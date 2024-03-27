@@ -1,11 +1,10 @@
-// import { list, check, todo, home } from "./Icons";
-
 import { FaHome } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
 import { FaCalendarCheck } from "react-icons/fa";
 import { LuListTodo } from "react-icons/lu";
+import IMenu from "../interfaces/IMenu";
 
-const menu = [
+const menu: IMenu[] = [
   {
     id: 1,
     title: "All Tasks",
