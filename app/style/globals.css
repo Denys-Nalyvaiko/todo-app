@@ -8,6 +8,10 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+*::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -30,7 +34,7 @@ body {
 
 @layer components {
   .nav_container {
-    @apply relative w-60 bg-colorBg2 rounded border-solid border-borderColor2 flex flex-col justify-between;
+    @apply relative w-60 bg-colorBg2 rounded-2xl border-solid border-borderColor2 flex flex-col justify-between;
   }
 
   .nav_profile {
@@ -44,5 +48,9 @@ body {
 
   .nav_item {
     @apply relative pt-3 pr-4 pb-4 pl-8 flex gap-4 items-center;
+  }
+
+  .tasks_container {
+    @apply p-8 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
   }
 }
