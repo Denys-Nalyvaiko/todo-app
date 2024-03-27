@@ -4,13 +4,21 @@ import { createContext, useContext, useState, useEffect } from "react";
 import printError from "../helpers/printError";
 
 import tasksData from "../data/tasksData.json";
+import {
+  ChildrenProps,
+  IGlobalContext,
+  IGlobalUpdateContext,
+  ITask,
+} from "../interfaces";
 
-export const GlobalContext = createContext();
-export const GlobalUpdateContext = createContext();
+export const GlobalContext = createContext<IGlobalContext | null>(null);
+export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
+  null
+);
 
-export const GlobalProvider = ({ children }) => {
+export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<ITask[]>([]);
 
   useEffect(() => {
     getAllTasks();

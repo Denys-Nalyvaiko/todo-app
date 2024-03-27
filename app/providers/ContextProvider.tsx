@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { GlobalProvider } from "../context/GlobalProvider.js";
 import ChildrenProps from "../interfaces/ChildrenProps";
+import { GlobalProvider } from "../context/GlobalProvider";
 
 const ContextProvider = ({ children }: ChildrenProps) => {
   const [isReady, setIsReady] = useState(false);
