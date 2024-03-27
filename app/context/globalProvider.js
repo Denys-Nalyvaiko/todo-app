@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import themes from "./themes";
 import printError from "../helpers/printError";
 
 import tasksData from "../data/tasksData.json";
