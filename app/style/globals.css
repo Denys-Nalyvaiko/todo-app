@@ -27,3 +27,22 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .nav_container {
+    @apply relative w-60 bg-colorBg2 rounded border-solid border-borderColor2 flex flex-col justify-between;
+  }
+
+  .nav_profile {
+    @apply m-6 px-4 py-3 rounded-2xl font-medium flex items-center;
+  }
+
+  .nav_profile_overlay {
+    @apply flex justify-center items-center gap-4 absolute top-0 left-0 w-full h-28 backdrop-blur z-0 
+    transition-all rounded-2xl border-2 border-solid opacity-80 hover:opacity-100 hover:border-2 hover:border-solid;
+  }
+
+  .nav_item {
+    @apply relative pt-3 pr-4 pb-4 pl-8 flex gap-4 items-center;
+  }
+}

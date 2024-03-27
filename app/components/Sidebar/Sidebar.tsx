@@ -15,22 +15,26 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="relative w-60 bg-colorBg2 rounded border-solid border-borderColor2">
-      <div>
-        <div>
-          <Image src={avatar} alt="profile" width={70} height={70} />
+    <nav className="nav_container text-colorGrey3">
+      <div className="nav_profile text-colorGrey0">
+        <div className="bg-colorBg3 border-borderColor2 nav_profile_overlay hover:border-borderColor2">
+          <div className="shrink-0 inline-block overflow-hidden transition-all rounded-full cursor-pointer hover:scale-110">
+            <Image src={avatar} alt="profile" width={70} height={70} />
+          </div>
+          <h1 className="text-sm flex flex-col relative z-1">
+            <span>User</span>
+            <span>Name</span>
+          </h1>
         </div>
-        <h1>
-          <span>User</span>
-          <span>Name</span>
-        </h1>
       </div>
-      <ul className="nav-items">
+      <ul>
         {menu.map(({ id, icon, link, title }) => (
           <li
             key={id}
-            className={`nav-item flex ${
-              pathname === link ? "text-green-300" : ""
+            className={`nav_item hover:bg-activeNavLinkHover hover:text-slate-300 ${
+              pathname === link
+                ? "text-green-300 bg-activeNavLink hover:text-green-300 hover:bg-activeNavLink"
+                : ""
             }`}
             onClick={() => {
               handleNavigationItemClick(link);
@@ -41,6 +45,7 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
+      <button type="button">Sign out</button>
     </nav>
   );
 };

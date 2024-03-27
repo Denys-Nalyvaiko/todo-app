@@ -11,9 +11,16 @@ const config: Config = {
       },
       backgroundColor: {
         colorBg2: "#212121",
+        colorBg3: "#181818",
+        activeNavLink: "rgba(249,249,249, 0.08)",
+        activeNavLinkHover: "rgba(249,249,249, 0.03)",
       },
       borderColor: {
         borderColor2: "rgba(249,249,249, 0.08)",
+      },
+      textColor: {
+        colorGrey3: "#6c7983",
+        colorGrey0: "#f8f8f8",
       },
     },
   },
