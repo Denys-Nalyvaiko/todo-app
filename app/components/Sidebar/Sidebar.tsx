@@ -31,10 +31,10 @@ const Sidebar = () => {
         {menu.map(({ id, icon, link, title }) => (
           <li
             key={id}
-            className={`nav_item hover:bg-activeNavLinkHover hover:text-slate-300 ${
+            className={`nav_item ${
               pathname === link
                 ? "text-green-300 bg-activeNavLink hover:text-green-300 hover:bg-activeNavLink"
-                : ""
+                : "hover:bg-activeNavLinkHover hover:text-slate-300"
             }`}
             onClick={() => {
               handleNavigationItemClick(link);
