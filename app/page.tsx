@@ -1,7 +1,12 @@
+"use client";
+
 import Tasks from "./components/Tasks/Tasks";
+import { useGlobalState } from "./context/GlobalProvider";
 
 const Home = () => {
-  return <Tasks />;
+  const { tasks } = useGlobalState();
+
+  return <Tasks tasks={tasks} title={"Tasks"} />;
 };
 
 export default Home;
