@@ -10,11 +10,8 @@ export const GlobalContext = createContext();
 export const GlobalUpdateContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const [selectedTheme, setSelectedTheme] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
-
-  const theme = themes[selectedTheme];
 
   useEffect(() => {
     getAllTasks();
@@ -34,9 +31,9 @@ export const GlobalProvider = ({ children }) => {
   };
 
   return (
-    <GlobalContext.Provider value={{ theme, tasks }}>
+    <GlobalContext.Provider value={{ tasks }}>
       <GlobalUpdateContext.Provider value={{}}>
-        {children}
+        {isLoading ? <p>Loading...</p> : children}
       </GlobalUpdateContext.Provider>
     </GlobalContext.Provider>
   );
