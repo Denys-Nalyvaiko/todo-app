@@ -19,7 +19,14 @@ const Sidebar = () => {
       <div className="nav_profile text-colorGrey0">
         <div className="bg-colorBg3 border-borderColor2 nav_profile_overlay hover:border-borderColor2">
           <div className="shrink-0 inline-block overflow-hidden transition-all rounded-full cursor-pointer hover:scale-110">
-            <Image src={avatar} alt="profile" width={70} height={70} />
+            <Image
+              src={avatar}
+              alt="profile"
+              width={60}
+              height={60}
+              priority={true}
+              className="w-auto h-auto"
+            />
           </div>
           <h1 className="text-sm flex flex-col relative z-1">
             <span>User</span>
