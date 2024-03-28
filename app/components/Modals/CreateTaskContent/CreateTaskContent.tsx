@@ -8,8 +8,9 @@ import {
   FormEvent,
 } from "react";
 import toast from "react-hot-toast";
+import { BsNodePlusFill } from "react-icons/bs";
 import CreateTaskDto from "@/app/data/dto/CreateTaskDto";
-import printError from "@/app/helpers/printError";
+import { useGlobalState } from "@/app/context/GlobalProvider";
 
 const CreateTaskContent = () => {
   const [title, setTitle] = useState("");
@@ -17,6 +18,8 @@ const CreateTaskContent = () => {
   const [date, setDate] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
   const [isImportant, setIsImportant] = useState(false);
+
+  const { createTask, closeModal }: any = useGlobalState();
 
   const options: Record<string, Dispatch<SetStateAction<any>>> = {
     title: setTitle,
@@ -46,76 +49,82 @@ const CreateTaskContent = () => {
       isImportant: Boolean(isImportant),
     };
 
-    try {
-      console.log("NEW TASK: ", task);
-      toast.success("Successfully created");
-    } catch (error) {
-      printError(error);
-    }
+    createTask(task);
+    closeModal();
+
+    toast.success("Successfully created");
   };
 
   return (
-    <>
-      <h1>Create a Task</h1>
-      <form action="submit" onSubmit={handleFormSubmit}>
-        <div className="input_control">
-          <label htmlFor="title">Title</label>
-          <input
-            value={title}
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Example title"
-            onChange={handleInputChange("title")}
-          />
-        </div>
-        <div className="input_control">
-          <label htmlFor="description">Description</label>
-          <textarea
-            value={description}
-            name="description"
-            id="description"
-            rows={4}
-            placeholder="Example description"
-            onChange={handleInputChange("description")}
-          />
-        </div>
-        <div className="input_control">
-          <label htmlFor="date">Date</label>
-          <input
-            value={date}
-            type="date"
-            name="date"
-            id="date"
-            onChange={handleInputChange("date")}
-          />
-        </div>
-        <div className="input_control">
-          <label htmlFor="isCompleted">Toggle Completed</label>
-          <input
-            value={isCompleted.toString()}
-            type="checkbox"
-            name="isCompleted"
-            id="isCompleted"
-            onChange={handleInputChange("isCompleted")}
-          />
-        </div>
-        <div className="input_control">
-          <label htmlFor="isImportant">Toggle Important</label>
-          <input
-            value={isImportant.toString()}
-            type="checkbox"
-            name="isImportant"
-            id="isImportant"
-            onChange={handleInputChange("isImportant")}
-          />
-        </div>
+    <form
+      action="submit"
+      className="shadow-md rounded-2xl text-colorGrey1"
+      onSubmit={handleFormSubmit}
+    >
+      <h2 className="text-xl font-semibold">Create a Task</h2>
+      <div className="input_control">
+        <label htmlFor="title">Title</label>
+        <input
+          value={title}
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Example title"
+          onChange={handleInputChange("title")}
+        />
+      </div>
+      <div className="input_control">
+        <label htmlFor="description">Description</label>
+        <textarea
+          value={description}
+          name="description"
+          id="description"
+          rows={4}
+          placeholder="Example description"
+          onChange={handleInputChange("description")}
+        />
+      </div>
+      <div className="input_control">
+        <label htmlFor="date">Date</label>
+        <input
+          value={date}
+          type="date"
+          name="date"
+          id="date"
+          onChange={handleInputChange("date")}
+        />
+      </div>
+      <div className="input_control toggler">
+        <label htmlFor="isCompleted">Toggle Completed</label>
+        <input
+          value={isCompleted.toString()}
+          type="checkbox"
+          name="isCompleted"
+          id="isCompleted"
+          onChange={handleInputChange("isCompleted")}
+        />
+      </div>
+      <div className="input_control toggler">
+        <label htmlFor="isImportant">Toggle Important</label>
+        <input
+          value={isImportant.toString()}
+          type="checkbox"
+          name="isImportant"
+          id="isImportant"
+          onChange={handleInputChange("isImportant")}
+        />
+      </div>
 
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </>
+      <div className="flex justify-end">
+        <button
+          type="submit"
+          name="createTask"
+          className="submit_button bg-slate-300 text-gray-700 border-gray-700 hover:bg-gray-700 hover:text-slate-300 hover:border-slate-300"
+        >
+          <BsNodePlusFill /> Create Task
+        </button>
+      </div>
+    </form>
   );
 };
 

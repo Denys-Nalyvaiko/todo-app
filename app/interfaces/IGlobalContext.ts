@@ -6,6 +6,10 @@ interface IGlobalContext {
   incompletedTasks: ITask[];
   importantTasks: ITask[];
   isLoading: boolean;
+  modal: boolean;
+  openModal(): void;
+  closeModal(): void;
+  createTask(task: ITask): void;
   updateTask(task: ITask): void;
   deleteTask(id: number): void;
 }

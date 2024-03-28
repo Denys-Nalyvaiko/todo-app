@@ -17,12 +17,21 @@ export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
 );
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     getAllTasks();
   }, []);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
 
   const getAllTasks = async () => {
     setIsLoading(true);
@@ -30,6 +39,18 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     try {
       const initialTasks = tasksData;
       setTasks(initialTasks);
+    } catch (error) {
+      printError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const createTask = async (newTask: ITask) => {
+    setIsLoading(true);
+
+    try {
+      setTasks((prev) => [{ ...newTask, id: Date.now() }, ...prev]);
     } catch (error) {
       printError(error);
     } finally {
@@ -85,6 +106,10 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         completedTasks,
         incompletedTasks,
         importantTasks,
+        modal,
+        openModal,
+        closeModal,
+        createTask,
         updateTask,
         deleteTask,
       }}

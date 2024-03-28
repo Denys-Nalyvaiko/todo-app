@@ -25,6 +25,7 @@ const config: Config = {
       },
       textColor: {
         colorGrey0: "#f8f8f8",
+        colorGrey1: "#dbe1e8",
         colorGrey2: "#b2becd",
         colorGrey3: "#6c7983",
       },

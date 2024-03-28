@@ -5,13 +5,18 @@ import CreateTaskContent from "../Modals/CreateTaskContent/CreateTaskContent";
 import TaskItem from "../TaskItem/TaskItem";
 import { ITasksProps } from "@/app/interfaces";
 import { useGlobalState } from "@/app/context/GlobalProvider";
+import ModalWrapper from "../Modals/ModalWrapper/ModalWrapper";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
-  const { isLoading }: any = useGlobalState();
+  const { isLoading, modal, openModal }: any = useGlobalState();
 
   return (
     <main className="tasks_container bg-colorBg2 border-borderColor2">
-      {false && <CreateTaskContent />}
+      {modal && (
+        <ModalWrapper>
+          <CreateTaskContent />
+        </ModalWrapper>
+      )}
 
       <h1 className="text-2xl font-extrabold relative">{title}</h1>
       {!isLoading ? (
@@ -33,6 +38,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
           <button
             type="button"
             className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
+            onClick={openModal}
           >
             <BsNodePlusFill size="1.6em" />
             Add New Task

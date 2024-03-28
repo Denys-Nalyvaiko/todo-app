@@ -34,6 +34,20 @@ a {
   text-decoration: none;
 }
 
+input,
+textarea,
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -84,5 +98,47 @@ a {
 
   .signout_button {
     @apply relative flex items-center z-10 text-lg mb-6 mx-auto gap-2 transition-all;
+  }
+
+  .modal_wrapper {
+    @apply flex items-center justify-center fixed top-0 left-0 w-full h-screen z-50;
+  }
+
+  .modal_overlay {
+    @apply absolute flex justify-center items-center top-0 left-0 w-full h-screen backdrop-blur-sm;
+  }
+
+  .modal_content {
+    @apply relative p-8 max-w-xl w-4/5 z-50 h-4/5 overflow-auto rounded-2xl border-2 border-solid;
+  }
+
+  .submit_button {
+    @apply py-2 px-4 rounded-lg text-xl font-medium flex justify-center items-center gap-2 transition-all border-2 border-solid;
+  }
+
+  .input_control {
+    @apply relative my-4 font-medium;
+  }
+
+  .input_control input,
+  .input_control textarea {
+    @apply w-full border-none p-4 resize-none rounded-lg bg-[#131313] text-[#b2becd];
+  }
+
+  .input_control label {
+    @apply mb-1 ml-2 inline-block text-sm;
+  }
+
+  .toggler {
+    @apply flex items-center justify-between;
+  }
+
+  .toggler label {
+    @apply flex-1;
+  }
+
+  .toggler input {
+    width: initial;
+    cursor: pointer;
   }
 }
