@@ -37,8 +37,20 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
+  const deleteTask = async (id: number) => {
+    setIsLoading(true);
+
+    try {
+      setTasks((prev) => prev.filter(({ id: taskId }) => taskId !== id));
+    } catch (error) {
+      printError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <GlobalContext.Provider value={{ tasks }}>
+    <GlobalContext.Provider value={{ tasks, deleteTask, isLoading }}>
       <GlobalUpdateContext.Provider value={{}}>
         {isLoading ? <p>Loading...</p> : children}
       </GlobalUpdateContext.Provider>

@@ -1,6 +1,7 @@
 import { MdEdit } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
 import { ITask } from "@/app/interfaces";
+import { useGlobalState } from "@/app/context/GlobalProvider";
 
 const TaskItem = ({
   id,
@@ -10,6 +11,8 @@ const TaskItem = ({
   isCompleted,
   isImportant,
 }: ITask) => {
+  const { deleteTask }: any = useGlobalState();
+
   return (
     <li className="task_item overflow-auto bg-colorBg5 shadow-shadow border-borderColor2">
       <div>
@@ -35,7 +38,11 @@ const TaskItem = ({
             <button type="button" className="icon_button">
               <MdEdit size="1.2em" />
             </button>
-            <button type="button" className="icon_button">
+            <button
+              type="button"
+              className="icon_button"
+              onClick={() => deleteTask(id)}
+            >
               <FaTrashAlt size="1.2em" />
             </button>
           </div>
