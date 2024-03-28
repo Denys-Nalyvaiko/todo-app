@@ -1,5 +1,7 @@
 import { MdEdit } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
+import { MdNotificationImportant } from "react-icons/md";
+import { MdOutlineNotificationImportant } from "react-icons/md";
 import { ITask } from "@/app/interfaces";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 
@@ -22,15 +24,28 @@ const TaskItem = ({
       <div>
         <p className="text-sm mb-2 ml-2 text-colorGrey2">{date}</p>
         <div className="flex justify-between items-center">
-          <button
-            type="button"
-            className={`completed_button ${
-              isCompleted ? "bg-colorGreenDark" : "bg-colorDanger"
-            }`}
-            onClick={() => updateTask({ id, isCompleted: !isCompleted })}
-          >
-            {isCompleted ? "Completed" : "Incompleted"}
-          </button>
+          <div className="flex justify-center items-center gap-6">
+            <button
+              type="button"
+              className={`completed_button ${
+                isCompleted ? "bg-colorGreenDark" : "bg-colorDanger"
+              }`}
+              onClick={() => updateTask({ id, isCompleted: !isCompleted })}
+            >
+              {isCompleted ? "Completed" : "Incompleted"}
+            </button>
+            <button
+              type="button"
+              className={isImportant ? "text-red-400" : ""}
+              onClick={() => updateTask({ id, isImportant: !isImportant })}
+            >
+              {isImportant ? (
+                <MdNotificationImportant size="1.4em" />
+              ) : (
+                <MdOutlineNotificationImportant size="1.4em" />
+              )}
+            </button>
+          </div>
 
           <div className="flex gap-3">
             <button
