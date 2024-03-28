@@ -1,11 +1,11 @@
 "use client";
 
 import { BsNodePlusFill } from "react-icons/bs";
-import CreateTaskContent from "../Modals/CreateTaskContent/CreateTaskContent";
 import TaskItem from "../TaskItem/TaskItem";
 import { ITasksProps } from "@/app/interfaces";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 import ModalWrapper from "../Modals/ModalWrapper/ModalWrapper";
+import UpsertTaskContent from "../Modals/UpsertTaskContent/UpsertTaskContent";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
   const { isLoading, modal, openModal }: any = useGlobalState();
@@ -14,7 +14,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
     <main className="tasks_container bg-colorBg2 border-borderColor2">
       {modal && (
         <ModalWrapper>
-          <CreateTaskContent />
+          <UpsertTaskContent />
         </ModalWrapper>
       )}
 
@@ -38,7 +38,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
           <button
             type="button"
             className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
-            onClick={openModal}
+            onClick={() => openModal(null)}
           >
             <BsNodePlusFill size="1.6em" />
             Add New Task

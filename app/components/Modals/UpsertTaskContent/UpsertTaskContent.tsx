@@ -7,19 +7,25 @@ import {
   SetStateAction,
   FormEvent,
 } from "react";
-import toast from "react-hot-toast";
 import { BsNodePlusFill } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
 import CreateTaskDto from "@/app/data/dto/CreateTaskDto";
+import UpdateTaskDto from "@/app/data/dto/UpdateTaskDto";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 
-const CreateTaskContent = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [date, setDate] = useState("");
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [isImportant, setIsImportant] = useState(false);
+const UpsertTaskContent = () => {
+  const { createTask, updateTask, closeModal, modalTask }: any =
+    useGlobalState();
 
-  const { createTask, closeModal }: any = useGlobalState();
+  const [title, setTitle] = useState(modalTask?.title ?? "");
+  const [description, setDescription] = useState(modalTask?.description ?? "");
+  const [date, setDate] = useState(modalTask?.date ?? "");
+  const [isCompleted, setIsCompleted] = useState(
+    modalTask?.isCompleted ?? false
+  );
+  const [isImportant, setIsImportant] = useState(
+    modalTask?.isImportant ?? false
+  );
 
   const options: Record<string, Dispatch<SetStateAction<any>>> = {
     title: setTitle,
@@ -31,28 +37,32 @@ const CreateTaskContent = () => {
 
   const handleInputChange =
     (name: string) =>
-    (
-      event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-    ) => {
+    ({
+      target,
+    }: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
       const setValue = options[name];
-      setValue(event.target.value);
+      const value =
+        target.type === "checkbox"
+          ? (target as HTMLInputElement).checked
+          : target.value;
+
+      setValue(value);
     };
 
   const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const task: CreateTaskDto = {
+    const task: CreateTaskDto | UpdateTaskDto = {
       title,
       description,
       date,
-      isCompleted: Boolean(isCompleted),
-      isImportant: Boolean(isImportant),
+      isCompleted,
+      isImportant,
     };
 
-    createTask(task);
-    closeModal();
+    modalTask ? updateTask({ ...task, id: modalTask.id }) : createTask(task);
 
-    toast.success("Successfully created");
+    closeModal();
   };
 
   return (
@@ -97,7 +107,7 @@ const CreateTaskContent = () => {
       <div className="input_control toggler">
         <label htmlFor="isCompleted">Toggle Completed</label>
         <input
-          value={isCompleted.toString()}
+          defaultChecked={isCompleted}
           type="checkbox"
           name="isCompleted"
           id="isCompleted"
@@ -107,7 +117,7 @@ const CreateTaskContent = () => {
       <div className="input_control toggler">
         <label htmlFor="isImportant">Toggle Important</label>
         <input
-          value={isImportant.toString()}
+          defaultChecked={isImportant}
           type="checkbox"
           name="isImportant"
           id="isImportant"
@@ -121,11 +131,19 @@ const CreateTaskContent = () => {
           name="createTask"
           className="submit_button bg-slate-300 text-gray-700 border-gray-700 hover:bg-gray-700 hover:text-slate-300 hover:border-slate-300"
         >
-          <BsNodePlusFill /> Create Task
+          {!modalTask ? (
+            <>
+              <BsNodePlusFill /> Create Task
+            </>
+          ) : (
+            <>
+              <MdEdit /> Edit Task
+            </>
+          )}
         </button>
       </div>
     </form>
   );
 };
 
-export default CreateTaskContent;
+export default UpsertTaskContent;

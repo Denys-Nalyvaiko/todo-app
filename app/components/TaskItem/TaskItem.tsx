@@ -11,7 +11,7 @@ const TaskItem = ({
   isCompleted,
   isImportant,
 }: ITask) => {
-  const { updateTask, deleteTask }: any = useGlobalState();
+  const { updateTask, deleteTask, openModal }: any = useGlobalState();
 
   return (
     <li className="task_item overflow-auto bg-colorBg5 shadow-shadow border-borderColor2">
@@ -33,7 +33,11 @@ const TaskItem = ({
           </button>
 
           <div className="flex gap-3">
-            <button type="button" className="icon_button">
+            <button
+              type="button"
+              className="icon_button"
+              onClick={() => openModal(id)}
+            >
               <MdEdit size="1.2em" />
             </button>
             <button

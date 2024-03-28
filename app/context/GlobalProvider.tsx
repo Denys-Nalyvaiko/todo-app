@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import printError from "../helpers/printError";
-
 import tasksData from "../data/tasksData.json";
 import {
   ChildrenProps,
@@ -18,6 +18,7 @@ export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [modalTask, setModalTask] = useState<ITask | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
@@ -26,8 +27,11 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     getAllTasks();
   }, []);
 
-  const openModal = () => {
+  const openModal = (id: number | null) => {
+    const targetTask = tasks.find(({ id: taskId }) => taskId === id);
     setModal(true);
+
+    setModalTask(targetTask);
   };
 
   const closeModal = () => {
@@ -56,6 +60,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
     try {
       setTasks((prev) => [{ ...newTask, id: Date.now() }, ...prev]);
+      toast.success("Successfully created");
     } catch (error) {
       printError(error);
     } finally {
@@ -72,6 +77,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       );
 
       setTasks(updatedTasks);
+      toast.success("Successfully updated");
     } catch (error) {
       printError(error);
     } finally {
@@ -84,6 +90,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
     try {
       setTasks((prev) => prev.filter(({ id: taskId }) => taskId !== id));
+      toast.success("Successfully deleted");
     } catch (error) {
       printError(error);
     } finally {
@@ -107,6 +114,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     <GlobalContext.Provider
       value={{
         tasks,
+        modalTask,
         isLoading,
         completedTasks,
         incompletedTasks,
