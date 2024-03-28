@@ -20,6 +20,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     getAllTasks();
@@ -31,6 +32,10 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const collapseMenu = () => {
+    setCollapsed((prev) => !prev);
   };
 
   const getAllTasks = async () => {
@@ -107,8 +112,10 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         incompletedTasks,
         importantTasks,
         modal,
+        collapsed,
         openModal,
         closeModal,
+        collapseMenu,
         createTask,
         updateTask,
         deleteTask,

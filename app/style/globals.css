@@ -59,6 +59,10 @@ input::-webkit-calendar-picker-indicator {
     @apply relative w-60 bg-colorBg2 rounded-2xl border-solid border-borderColor2 flex flex-col justify-between;
   }
 
+  .mobile_nav_container {
+    @apply fixed h-screen-2rem z-10;
+  }
+
   .nav_profile {
     @apply m-6 px-4 py-3 rounded-2xl font-medium flex items-center;
   }
@@ -140,5 +144,11 @@ input::-webkit-calendar-picker-indicator {
   .toggler input {
     width: initial;
     cursor: pointer;
+  }
+
+  .toggle_border {
+    border-top: 3px solid rgba(249, 249, 249, 0.1);
+    border-right: 3px solid rgba(249, 249, 249, 0.1);
+    border-bottom: 3px solid rgba(249, 249, 249, 0.1);
   }
 }

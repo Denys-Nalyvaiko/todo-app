@@ -7,8 +7,10 @@ interface IGlobalContext {
   importantTasks: ITask[];
   isLoading: boolean;
   modal: boolean;
+  collapsed: boolean;
   openModal(): void;
   closeModal(): void;
+  collapseMenu(): void;
   createTask(task: ITask): void;
   updateTask(task: ITask): void;
   deleteTask(id: number): void;
