@@ -12,15 +12,24 @@ const config: Config = {
       backgroundColor: {
         colorBg2: "#212121",
         colorBg3: "#181818",
+        colorBg5: "rgba(249,249,249, 0.08)",
         activeNavLink: "rgba(249,249,249, 0.08)",
         activeNavLinkHover: "rgba(249,249,249, 0.03)",
+        colorGrey5: "#2a2e35",
+        colorDanger: "#fe6854",
+        colorGreenDark: "#27AE60",
       },
       borderColor: {
         borderColor2: "rgba(249,249,249, 0.08)",
+        colorGrey5: "#2a2e35",
       },
       textColor: {
-        colorGrey3: "#6c7983",
         colorGrey0: "#f8f8f8",
+        colorGrey2: "#b2becd",
+        colorGrey3: "#6c7983",
+      },
+      boxShadow: {
+        shadow: "1px 7px 12px rgba(8, 18, 69, 0.1)",
       },
     },
   },

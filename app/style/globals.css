@@ -22,6 +22,18 @@ body {
   background-color: #181818;
 }
 
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -30,7 +42,7 @@ body {
 
 @layer components {
   .nav_container {
-    @apply relative w-60 bg-colorBg2 rounded border-solid border-borderColor2 flex flex-col justify-between;
+    @apply relative w-60 bg-colorBg2 rounded-2xl border-solid border-borderColor2 flex flex-col justify-between;
   }
 
   .nav_profile {
@@ -44,5 +56,33 @@ body {
 
   .nav_item {
     @apply relative pt-3 pr-4 pb-4 pl-8 flex gap-4 items-center;
+  }
+
+  .tasks_container {
+    @apply p-8 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
+  }
+
+  .create_task {
+    @apply flex items-center justify-center gap-2 h-64 cursor-pointer rounded-2xl border-4 border-dashed transition-all;
+  }
+
+  .tasks_grid {
+    @apply grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6;
+  }
+
+  .task_item {
+    @apply py-5 px-4 rounded-2xl h-64 flex flex-col gap-2 border-2 border-solid justify-between;
+  }
+
+  .icon_button {
+    @apply border-none outline-none cursor-pointer;
+  }
+
+  .completed_button {
+    @apply inline-block py-1 px-4 rounded-3xl text-sm;
+  }
+
+  .signout_button {
+    @apply relative flex items-center z-10 text-lg mb-6 mx-auto gap-2 transition-all;
   }
 }

@@ -1,4 +1,6 @@
-const themes = [
+import { ITheme } from "../interfaces";
+
+const themes: ITheme[] = [
   {
     name: "dark",
     colorBg: "#252525",

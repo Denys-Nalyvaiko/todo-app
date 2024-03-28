@@ -1,7 +1,7 @@
 "use client";
 
 import { GlobalStyles } from "../style/GlobalStyles";
-import ChildrenProps from "../interfaces/ChildrenProps";
+import { ChildrenProps } from "../interfaces";
 
 const GlobalStyleProvider = ({ children }: ChildrenProps) => (
   <GlobalStyles>{children}</GlobalStyles>
