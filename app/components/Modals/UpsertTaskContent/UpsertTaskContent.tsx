@@ -69,7 +69,7 @@ const UpsertTaskContent = () => {
   return (
     <form
       action="submit"
-      className="relative shadow-md rounded-2xl text-colorGrey1"
+      className="relative h-full shadow-md rounded-2xl text-colorGrey1"
       onSubmit={handleFormSubmit}
     >
       <h2 className="text-xl font-semibold">
@@ -105,7 +105,7 @@ const UpsertTaskContent = () => {
           onChange={handleInputChange("description")}
         />
       </div>
-      <div className="input_control">
+      <div className="input_control mb-8">
         <label htmlFor="date">Date</label>
         <input
           value={date}
@@ -116,7 +116,9 @@ const UpsertTaskContent = () => {
         />
       </div>
       <div className="input_control toggler">
-        <label htmlFor="isCompleted">Toggle Completed</label>
+        <label htmlFor="isCompleted" className="form_control">
+          Toggle Completed
+        </label>
         <input
           defaultChecked={isCompleted}
           type="checkbox"
@@ -126,7 +128,9 @@ const UpsertTaskContent = () => {
         />
       </div>
       <div className="input_control toggler">
-        <label htmlFor="isImportant">Toggle Important</label>
+        <label htmlFor="isImportant" className="form_control">
+          Toggle Important
+        </label>
         <input
           defaultChecked={isImportant}
           type="checkbox"
