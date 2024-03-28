@@ -37,6 +37,22 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
+  const updateTask = async (targetTask: ITask) => {
+    setIsLoading(true);
+
+    try {
+      const updatedTasks = tasks.map((task) =>
+        task.id !== targetTask.id ? task : { ...task, ...targetTask }
+      );
+
+      setTasks(updatedTasks);
+    } catch (error) {
+      printError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const deleteTask = async (id: number) => {
     setIsLoading(true);
 
@@ -69,6 +85,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         completedTasks,
         incompletedTasks,
         importantTasks,
+        updateTask,
         deleteTask,
       }}
     >

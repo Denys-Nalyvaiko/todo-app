@@ -11,7 +11,7 @@ const TaskItem = ({
   isCompleted,
   isImportant,
 }: ITask) => {
-  const { deleteTask }: any = useGlobalState();
+  const { updateTask, deleteTask }: any = useGlobalState();
 
   return (
     <li className="task_item overflow-auto bg-colorBg5 shadow-shadow border-borderColor2">
@@ -22,18 +22,16 @@ const TaskItem = ({
       <div>
         <p className="text-sm mb-2 ml-2 text-colorGrey2">{date}</p>
         <div className="flex justify-between items-center">
-          {isCompleted ? (
-            <button
-              type="button"
-              className="completed_button bg-colorGreenDark"
-            >
-              Completed
-            </button>
-          ) : (
-            <button type="button" className="completed_button bg-colorDanger">
-              Incompleted
-            </button>
-          )}
+          <button
+            type="button"
+            className={`completed_button ${
+              isCompleted ? "bg-colorGreenDark" : "bg-colorDanger"
+            }`}
+            onClick={() => updateTask({ id, isCompleted: !isCompleted })}
+          >
+            {isCompleted ? "Completed" : "Incompleted"}
+          </button>
+
           <div className="flex gap-3">
             <button type="button" className="icon_button">
               <MdEdit size="1.2em" />

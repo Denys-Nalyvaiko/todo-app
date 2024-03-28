@@ -6,6 +6,7 @@ interface IGlobalContext {
   incompletedTasks: ITask[];
   importantTasks: ITask[];
   isLoading: boolean;
+  updateTask(task: ITask): void;
   deleteTask(id: number): void;
 }
 
