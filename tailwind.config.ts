@@ -4,6 +4,12 @@ const config: Config = {
   content: ["./app/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
+      height: {
+        "screen-2rem": "calc(100vh - 2rem)",
+      },
+      translate: {
+        "minus-custom": "-107%",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -25,6 +31,7 @@ const config: Config = {
       },
       textColor: {
         colorGrey0: "#f8f8f8",
+        colorGrey1: "#dbe1e8",
         colorGrey2: "#b2becd",
         colorGrey3: "#6c7983",
       },

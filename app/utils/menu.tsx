@@ -27,7 +27,7 @@ const menu: IMenu[] = [
     id: 4,
     title: "Do It Now",
     icon: <LuListTodo />,
-    link: "/incomplete",
+    link: "/incompleted",
   },
 ];
 

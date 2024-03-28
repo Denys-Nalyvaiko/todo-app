@@ -34,6 +34,73 @@ a {
   text-decoration: none;
 }
 
+input,
+textarea,
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.form_control {
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+
+.form_control + .form_control {
+  margin-top: 1em;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--form-background);
+  margin: 0;
+
+  font: inherit;
+  color: rgb(178 190 205);
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid rgb(178 190 205);
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  transform: scale(0);
+  transform-origin: bottom left;
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--form-control-color);
+  background-color: rgb(178 190 205);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -43,6 +110,10 @@ a {
 @layer components {
   .nav_container {
     @apply relative w-60 bg-colorBg2 rounded-2xl border-solid border-borderColor2 flex flex-col justify-between;
+  }
+
+  .mobile_nav_container {
+    @apply fixed h-screen-2rem z-10;
   }
 
   .nav_profile {
@@ -84,5 +155,58 @@ a {
 
   .signout_button {
     @apply relative flex items-center z-10 text-lg mb-6 mx-auto gap-2 transition-all;
+  }
+
+  .modal_wrapper {
+    @apply flex items-center justify-center fixed top-0 left-0 w-full h-screen z-50;
+  }
+
+  .modal_overlay {
+    @apply absolute flex justify-center items-center top-0 left-0 w-full h-screen backdrop-blur-sm;
+  }
+
+  .modal_content {
+    @apply relative p-8 max-w-xl w-4/5 z-50 h-4/5 overflow-auto rounded-2xl border-2 border-solid;
+  }
+
+  .submit_button {
+    @apply py-2 px-4 rounded-lg text-xl font-medium flex justify-center items-center gap-2 transition-all border-2 border-solid;
+  }
+
+  .input_control {
+    @apply relative my-4 font-medium;
+  }
+
+  .input_control input,
+  .input_control textarea {
+    @apply w-full border-none p-4 resize-none rounded-lg bg-[#131313] text-[#b2becd];
+  }
+
+  .input_control input::placeholder,
+  .input_control textarea::placeholder {
+    color: rgba(178, 190, 205, 0.5);
+  }
+
+  .input_control label {
+    @apply mb-1 ml-2 inline-block text-sm;
+  }
+
+  .toggler {
+    @apply flex items-center justify-between;
+  }
+
+  .toggler label {
+    @apply flex-1;
+  }
+
+  .toggler input {
+    width: initial;
+    cursor: pointer;
+  }
+
+  .toggle_border {
+    border-top: 3px solid rgba(249, 249, 249, 0.1);
+    border-right: 3px solid rgba(249, 249, 249, 0.1);
+    border-bottom: 3px solid rgba(249, 249, 249, 0.1);
   }
 }

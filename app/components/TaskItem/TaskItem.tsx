@@ -1,5 +1,7 @@
 import { MdEdit } from "react-icons/md";
 import { FaTrashAlt } from "react-icons/fa";
+import { MdNotificationImportant } from "react-icons/md";
+import { MdOutlineNotificationImportant } from "react-icons/md";
 import { ITask } from "@/app/interfaces";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 
@@ -11,7 +13,7 @@ const TaskItem = ({
   isCompleted,
   isImportant,
 }: ITask) => {
-  const { deleteTask }: any = useGlobalState();
+  const { updateTask, deleteTask, openModal }: any = useGlobalState();
 
   return (
     <li className="task_item overflow-auto bg-colorBg5 shadow-shadow border-borderColor2">
@@ -22,20 +24,35 @@ const TaskItem = ({
       <div>
         <p className="text-sm mb-2 ml-2 text-colorGrey2">{date}</p>
         <div className="flex justify-between items-center">
-          {isCompleted ? (
+          <div className="flex justify-center items-center gap-6">
             <button
               type="button"
-              className="completed_button bg-colorGreenDark"
+              className={`completed_button ${
+                isCompleted ? "bg-colorGreenDark" : "bg-colorDanger"
+              }`}
+              onClick={() => updateTask({ id, isCompleted: !isCompleted })}
             >
-              Completed
+              {isCompleted ? "Completed" : "Incompleted"}
             </button>
-          ) : (
-            <button type="button" className="completed_button bg-colorDanger">
-              Incompleted
+            <button
+              type="button"
+              className={isImportant ? "text-red-400" : ""}
+              onClick={() => updateTask({ id, isImportant: !isImportant })}
+            >
+              {isImportant ? (
+                <MdNotificationImportant size="1.4em" />
+              ) : (
+                <MdOutlineNotificationImportant size="1.4em" />
+              )}
             </button>
-          )}
+          </div>
+
           <div className="flex gap-3">
-            <button type="button" className="icon_button">
+            <button
+              type="button"
+              className="icon_button"
+              onClick={() => openModal(id)}
+            >
               <MdEdit size="1.2em" />
             </button>
             <button

@@ -7,7 +7,7 @@ export const GlobalStyles = styled.div`
   height: 100vh;
   transition: all 0.3s ease-in-out;
 
-  @media screen and (max-width: 648px) {
+  @media screen and (max-width: 768px) {
     padding: 1rem;
     gap: 1rem;
   }
