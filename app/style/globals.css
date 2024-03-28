@@ -73,4 +73,16 @@ a {
   .task_item {
     @apply py-5 px-4 rounded-2xl h-64 flex flex-col gap-2 border-2 border-solid justify-between;
   }
+
+  .icon_button {
+    @apply border-none outline-none cursor-pointer;
+  }
+
+  .completed_button {
+    @apply inline-block py-1 px-4 rounded-3xl text-sm;
+  }
+
+  .signout_button {
+    @apply relative flex items-center z-10 text-lg mb-6 mx-auto gap-2 transition-all;
+  }
 }

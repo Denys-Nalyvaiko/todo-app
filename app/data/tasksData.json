@@ -20,7 +20,7 @@
     "title": "Review Weekly Reports",
     "description": "Review and provide feedback on the weekly reports submitted by team members.",
     "date": "2024-03-29",
-    "isCompleted": false,
+    "isCompleted": true,
     "isImportant": false
   },
   {
@@ -28,7 +28,7 @@
     "title": "Schedule Team Meeting",
     "description": "Coordinate with team members and schedule a meeting to discuss project updates.",
     "date": "2024-03-30",
-    "isCompleted": false,
+    "isCompleted": true,
     "isImportant": true
   },
   {
@@ -58,9 +58,9 @@
   {
     "id": 8,
     "title": "Follow-Up on Action Items",
-    "description": "Follow up with team members on pending action items from the last meeting.",
+    "description": "Follow up with team members on pending action items from the last meeting.  Draft and finalize the project proposal document for the upcoming client presentation. Draft and finalize the project proposal document for the upcoming client presentation. Draft and finalize the project proposal document for the upcoming client presentation.",
     "date": "2024-04-03",
-    "isCompleted": false,
+    "isCompleted": true,
     "isImportant": true
   },
   {

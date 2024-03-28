@@ -11,25 +11,34 @@ const TaskItem = ({
   isImportant,
 }: ITask) => {
   return (
-    <li className="task_item bg-colorBg5 shadow-shadow border-borderColor2">
+    <li className="task_item overflow-auto bg-colorBg5 shadow-shadow border-borderColor2">
       <div>
-        <h3>{title}</h3>
+        <h2 className="text-lg font-semibold mb-1">{title}</h2>
         <p className="text-sm">{description}</p>
       </div>
       <div>
-        <p>{date}</p>
-        {isCompleted ? (
-          <button type="button">Complete</button>
-        ) : (
-          <button>Incomplete</button>
-        )}
-        <div>
-          <button type="button">
-            <MdEdit />
-          </button>
-          <button type="button">
-            <FaTrashAlt />
-          </button>
+        <p className="text-sm mb-2 ml-2 text-colorGrey2">{date}</p>
+        <div className="flex justify-between items-center">
+          {isCompleted ? (
+            <button
+              type="button"
+              className="completed_button bg-colorGreenDark"
+            >
+              Completed
+            </button>
+          ) : (
+            <button type="button" className="completed_button bg-colorDanger">
+              Incompleted
+            </button>
+          )}
+          <div className="flex gap-3">
+            <button type="button" className="icon_button">
+              <MdEdit size="1.2em" />
+            </button>
+            <button type="button" className="icon_button">
+              <FaTrashAlt size="1.2em" />
+            </button>
+          </div>
         </div>
       </div>
     </li>

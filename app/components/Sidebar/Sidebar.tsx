@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { PiSignOutBold } from "react-icons/pi";
 import avatar from "../../../public/images/avatar.jpg";
 import menu from "@/app/utils/menu";
 
@@ -52,7 +53,12 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
-      <button type="button">Sign out</button>
+      <button
+        type="button"
+        className="signout_button text-gray-300 hover:text-gray-100"
+      >
+        <PiSignOutBold /> Sign out
+      </button>
     </nav>
   );
 };

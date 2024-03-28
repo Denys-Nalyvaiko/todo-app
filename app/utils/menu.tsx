@@ -13,13 +13,13 @@ const menu: IMenu[] = [
   },
   {
     id: 2,
-    title: "Important!",
+    title: "Important",
     icon: <FaListUl />,
     link: "/important",
   },
   {
     id: 3,
-    title: "Completed!",
+    title: "Completed",
     icon: <FaCalendarCheck />,
     link: "/completed",
   },

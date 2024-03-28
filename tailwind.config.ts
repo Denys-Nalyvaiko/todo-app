@@ -16,6 +16,8 @@ const config: Config = {
         activeNavLink: "rgba(249,249,249, 0.08)",
         activeNavLinkHover: "rgba(249,249,249, 0.03)",
         colorGrey5: "#2a2e35",
+        colorDanger: "#fe6854",
+        colorGreenDark: "#27AE60",
       },
       borderColor: {
         borderColor2: "rgba(249,249,249, 0.08)",
