@@ -18,7 +18,18 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
         </ModalWrapper>
       )}
 
-      <h1 className="text-2xl font-extrabold relative">{title}</h1>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-extrabold relative">{title}</h1>
+        <button
+          type="button"
+          className="flex gap-2 text-colorGrey2 hover:text-colorGrey0 "
+          onClick={() => openModal(null)}
+        >
+          <BsNodePlusFill size="1.6em" />
+          Add New Task
+        </button>
+      </div>
+
       {!isLoading ? (
         <ul className="tasks_grid my-4">
           {tasks?.map(

@@ -129,6 +129,11 @@ input::-webkit-calendar-picker-indicator {
     @apply w-full border-none p-4 resize-none rounded-lg bg-[#131313] text-[#b2becd];
   }
 
+  .input_control input::placeholder,
+  .input_control textarea::placeholder {
+    color: rgba(178, 190, 205, 0.5);
+  }
+
   .input_control label {
     @apply mb-1 ml-2 inline-block text-sm;
   }

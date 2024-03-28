@@ -9,6 +9,7 @@ import {
 } from "react";
 import { BsNodePlusFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
+import { ImCross } from "react-icons/im";
 import CreateTaskDto from "@/app/data/dto/CreateTaskDto";
 import UpdateTaskDto from "@/app/data/dto/UpdateTaskDto";
 import { useGlobalState } from "@/app/context/GlobalProvider";
@@ -68,10 +69,20 @@ const UpsertTaskContent = () => {
   return (
     <form
       action="submit"
-      className="shadow-md rounded-2xl text-colorGrey1"
+      className="relative shadow-md rounded-2xl text-colorGrey1"
       onSubmit={handleFormSubmit}
     >
-      <h2 className="text-xl font-semibold">Create a Task</h2>
+      <h2 className="text-xl font-semibold">
+        {!modalTask ? "Create a Task" : "Edit Task"}
+      </h2>
+      <button
+        type="button"
+        className="absolute right-0 top-0 hover:text-colorGrey0 transition-all"
+        onClick={closeModal}
+      >
+        <ImCross />
+      </button>
+
       <div className="input_control">
         <label htmlFor="title">Title</label>
         <input
