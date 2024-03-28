@@ -6,7 +6,6 @@ const config: Config = {
     extend: {
       height: {
         "screen-2rem": "calc(100vh - 2rem)",
-        "9/10": "90%",
       },
       translate: {
         "minus-custom": "-107%",

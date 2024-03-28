@@ -166,7 +166,7 @@ input[type="checkbox"]:focus {
   }
 
   .modal_content {
-    @apply relative p-8 max-w-xl w-4/5 z-50 h-9/10 overflow-auto rounded-2xl border-2 border-solid;
+    @apply relative p-8 max-w-xl w-4/5 z-50 h-4/5 overflow-auto rounded-2xl border-2 border-solid;
   }
 
   .submit_button {
