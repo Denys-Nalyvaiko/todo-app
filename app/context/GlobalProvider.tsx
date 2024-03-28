@@ -49,8 +49,29 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
+  const completedTasks = tasks.filter(
+    ({ isCompleted }) => isCompleted === true
+  );
+
+  const incompletedTasks = tasks.filter(
+    ({ isCompleted }) => isCompleted === false
+  );
+
+  const importantTasks = tasks.filter(
+    ({ isImportant }) => isImportant === true
+  );
+
   return (
-    <GlobalContext.Provider value={{ tasks, deleteTask, isLoading }}>
+    <GlobalContext.Provider
+      value={{
+        tasks,
+        isLoading,
+        completedTasks,
+        incompletedTasks,
+        importantTasks,
+        deleteTask,
+      }}
+    >
       <GlobalUpdateContext.Provider value={{}}>
         {isLoading ? <p>Loading...</p> : children}
       </GlobalUpdateContext.Provider>
