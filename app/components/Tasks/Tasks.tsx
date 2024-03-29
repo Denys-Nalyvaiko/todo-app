@@ -1,14 +1,29 @@
 "use client";
 
+import { ChangeEvent, useState } from "react";
 import { BsNodePlusFill } from "react-icons/bs";
 import TaskItem from "../TaskItem/TaskItem";
 import { ITasksProps } from "@/app/interfaces";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 import ModalWrapper from "../Modals/ModalWrapper/ModalWrapper";
 import UpsertTaskContent from "../Modals/UpsertTaskContent/UpsertTaskContent";
+import SearchTask from "../SearchTask/SearchTask";
+import DropdownWrapper from "../Dropdown/DropdownWrapper/DropdownWrapper";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
   const { isLoading, modal, openModal }: any = useGlobalState();
+  const [filter, setFilter] = useState("");
+
+  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  };
+
+  const updateTasks = () =>
+    tasks.filter(({ title }) =>
+      title.toLowerCase().includes(filter.toLowerCase().trim())
+    );
+
+  const filteredTasks = updateTasks();
 
   return (
     <main className="tasks_container bg-colorBg2 border-borderColor2">
@@ -18,8 +33,13 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
         </ModalWrapper>
       )}
 
+      <DropdownWrapper buttonText="Sort By" />
+
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-extrabold relative">{title}</h1>
+        <h1 className="text-2xl font-extrabold relative max-lg:hidden">
+          {title}
+        </h1>
+        <SearchTask filter={filter} onChange={handleSearchInputChange} />
         <button
           type="button"
           className="flex gap-2 text-colorGrey2 hover:text-colorGrey0 "
@@ -32,7 +52,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
 
       {!isLoading ? (
         <ul className="tasks_grid my-4">
-          {tasks?.map(
+          {filteredTasks?.map(
             ({ id, title, description, date, isCompleted, isImportant }) => (
               <TaskItem
                 key={id}
