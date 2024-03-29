@@ -113,7 +113,7 @@ input[type="checkbox"]:focus {
   }
 
   .mobile_nav_container {
-    @apply fixed h-screen-2rem z-10;
+    @apply fixed h-screen-2rem z-20;
   }
 
   .nav_profile {
@@ -130,7 +130,7 @@ input[type="checkbox"]:focus {
   }
 
   .tasks_container {
-    @apply p-8 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
+    @apply px-8 py-4 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
   }
 
   .create_task {

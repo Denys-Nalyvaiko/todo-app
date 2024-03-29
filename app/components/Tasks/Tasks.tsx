@@ -8,6 +8,7 @@ import { useGlobalState } from "@/app/context/GlobalProvider";
 import ModalWrapper from "../Modals/ModalWrapper/ModalWrapper";
 import UpsertTaskContent from "../Modals/UpsertTaskContent/UpsertTaskContent";
 import SearchTask from "../SearchTask/SearchTask";
+import DropdownWrapper from "../Dropdown/DropdownWrapper/DropdownWrapper";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
   const { isLoading, modal, openModal }: any = useGlobalState();
@@ -31,6 +32,8 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
           <UpsertTaskContent />
         </ModalWrapper>
       )}
+
+      <DropdownWrapper buttonText="Sort By" />
 
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-extrabold relative max-lg:hidden">
