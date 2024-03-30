@@ -12,9 +12,10 @@ interface IGlobalContext {
   openModal(id: number | null): void;
   closeModal(): void;
   collapseMenu(): void;
+  getOneTask(taskId: number): void;
   createTask(task: ITask): void;
   updateTask(task: ITask): void;
-  deleteTask(id: number): void;
+  deleteTask(taskId: number): void;
 }
 
 export default IGlobalContext;

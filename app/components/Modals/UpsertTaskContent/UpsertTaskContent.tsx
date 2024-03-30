@@ -21,19 +21,19 @@ const UpsertTaskContent = () => {
   const [title, setTitle] = useState(modalTask?.title ?? "");
   const [description, setDescription] = useState(modalTask?.description ?? "");
   const [date, setDate] = useState(modalTask?.date ?? "");
-  const [isCompleted, setIsCompleted] = useState(
-    modalTask?.isCompleted ?? false
+  const [is_completed, setIsCompleted] = useState(
+    modalTask?.is_completed ?? false
   );
-  const [isImportant, setIsImportant] = useState(
-    modalTask?.isImportant ?? false
+  const [is_important, setIsImportant] = useState(
+    modalTask?.is_important ?? false
   );
 
   const options: Record<string, Dispatch<SetStateAction<any>>> = {
     title: setTitle,
     description: setDescription,
     date: setDate,
-    isCompleted: setIsCompleted,
-    isImportant: setIsImportant,
+    is_completed: setIsCompleted,
+    is_important: setIsImportant,
   };
 
   const handleInputChange =
@@ -57,8 +57,8 @@ const UpsertTaskContent = () => {
       title,
       description,
       date,
-      isCompleted,
-      isImportant,
+      is_completed,
+      is_important,
     };
 
     modalTask ? updateTask({ ...task, id: modalTask.id }) : createTask(task);
@@ -116,27 +116,27 @@ const UpsertTaskContent = () => {
         />
       </div>
       <div className="input_control toggler">
-        <label htmlFor="isCompleted" className="form_control">
+        <label htmlFor="is_completed" className="form_control">
           Toggle Completed
         </label>
         <input
-          defaultChecked={isCompleted}
+          defaultChecked={is_completed}
           type="checkbox"
-          name="isCompleted"
-          id="isCompleted"
-          onChange={handleInputChange("isCompleted")}
+          name="is_completed"
+          id="is_completed"
+          onChange={handleInputChange("is_completed")}
         />
       </div>
       <div className="input_control toggler">
-        <label htmlFor="isImportant" className="form_control">
+        <label htmlFor="is_important" className="form_control">
           Toggle Important
         </label>
         <input
-          defaultChecked={isImportant}
+          defaultChecked={is_important}
           type="checkbox"
-          name="isImportant"
-          id="isImportant"
-          onChange={handleInputChange("isImportant")}
+          name="is_important"
+          id="is_important"
+          onChange={handleInputChange("is_important")}
         />
       </div>
 
