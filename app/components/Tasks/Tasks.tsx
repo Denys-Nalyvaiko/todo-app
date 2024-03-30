@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { BsNodePlusFill } from "react-icons/bs";
 import TaskItem from "../TaskItem/TaskItem";
 import { ITasksProps } from "@/app/interfaces";
@@ -9,10 +9,27 @@ import ModalWrapper from "../Modals/ModalWrapper/ModalWrapper";
 import UpsertTaskContent from "../Modals/UpsertTaskContent/UpsertTaskContent";
 import SearchTask from "../SearchTask/SearchTask";
 import DropdownWrapper from "../Dropdown/DropdownWrapper/DropdownWrapper";
+import SkeletonTaskLoader from "../Loaders/SkeletonTaskLoader/SkeletonTaskLoader";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
-  const { modal, openModal }: any = useGlobalState();
+  const { modal, openModal, isLoading }: any = useGlobalState();
   const [filter, setFilter] = useState("");
+
+  // // ?
+
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+
+  //   const timeout = setTimeout(() => {
+  //     setIsLoading(false);
+  //   }, 4000);
+
+  //   return () => clearTimeout(timeout);
+  // }, []);
+
+  // // ?
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
@@ -50,30 +67,34 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
         </button>
       </div>
 
-      <ul className="tasks_grid my-4">
-        {filteredTasks?.map(
-          ({ id, title, description, date, is_completed, is_important }) => (
-            <TaskItem
-              key={id}
-              id={id}
-              title={title}
-              description={description}
-              date={date}
-              is_completed={is_completed}
-              is_important={is_important}
-            />
-          )
-        )}
+      {!isLoading?.taskList ? (
+        <ul className="tasks_grid my-4">
+          {filteredTasks?.map(
+            ({ id, title, description, date, is_completed, is_important }) => (
+              <TaskItem
+                key={id}
+                id={id}
+                title={title}
+                description={description}
+                date={date}
+                is_completed={is_completed}
+                is_important={is_important}
+              />
+            )
+          )}
 
-        <button
-          type="button"
-          className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
-          onClick={() => openModal(null)}
-        >
-          <BsNodePlusFill size="1.6em" />
-          Add New Task
-        </button>
-      </ul>
+          <button
+            type="button"
+            className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
+            onClick={() => openModal(null)}
+          >
+            <BsNodePlusFill size="1.6em" />
+            Add New Task
+          </button>
+        </ul>
+      ) : (
+        <SkeletonTaskLoader />
+      )}
     </main>
   );
 };

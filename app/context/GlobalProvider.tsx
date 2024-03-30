@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
+import initialLoadingProps from "../utils/initialLoadingPorps";
 import {
   ChildrenProps,
   IGlobalContext,
@@ -25,7 +26,7 @@ export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [modalTask, setModalTask] = useState<ITask | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialLoadingProps);
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
 
@@ -49,7 +50,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   };
 
   const getAllTasks = async (sortBy: string | undefined) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, taskList: true }));
 
     try {
       const tasksData = await fetchAllTasks(sortBy);
@@ -57,24 +58,26 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, taskList: false }));
     }
   };
 
+  // TODO fill another loading
+
   const getOneTask = async (taskId: number) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, another: true }));
 
     try {
       return await fetchOneTask(taskId);
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, another: false }));
     }
   };
 
   const createTask = async (newTask: ITask) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, another: true }));
 
     try {
       const taskData = await createOneTask(newTask);
@@ -83,12 +86,12 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, another: false }));
     }
   };
 
   const updateTask = async (taskToUpdate: ITask) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, another: true }));
 
     try {
       const targetTask = tasks.find(
@@ -110,12 +113,12 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, another: false }));
     }
   };
 
   const deleteTask = async (taskId: number) => {
-    setIsLoading(true);
+    setIsLoading((prev) => ({ ...prev, another: true }));
 
     try {
       await deleteOneTask(taskId);
@@ -125,7 +128,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading((prev) => ({ ...prev, another: false }));
     }
   };
 

@@ -6,3 +6,4 @@ export type { default as IMenu } from "./IMenu";
 export type { default as ITheme } from "./ITheme";
 export type { default as ITasksProps } from "./ITasksProps";
 export type { default as ISortingMenu } from "./ISortingMenu";
+export type { default as TypeInitialLoadingProps } from "./TypeInitialLoadingProps";
