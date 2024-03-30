@@ -3,13 +3,19 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
-import tasksData from "../data/tasksData.json";
 import {
   ChildrenProps,
   IGlobalContext,
   IGlobalUpdateContext,
   ITask,
 } from "../interfaces";
+import {
+  createOneTask,
+  deleteOneTask,
+  fetchAllTasks,
+  fetchOneTask,
+  updateOneTask,
+} from "../data/services";
 
 export const GlobalContext = createContext<IGlobalContext | null>(null);
 export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
@@ -24,7 +30,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
-    getAllTasks();
+    getAllTasks(undefined);
   }, []);
 
   const openModal = (id: number | null) => {
@@ -42,12 +48,24 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     setCollapsed((prev) => !prev);
   };
 
-  const getAllTasks = async () => {
+  const getAllTasks = async (sortBy: string | undefined) => {
     setIsLoading(true);
 
     try {
-      const initialTasks = tasksData;
-      setTasks(initialTasks);
+      const tasksData = await fetchAllTasks(sortBy);
+      setTasks(tasksData);
+    } catch (error) {
+      printError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getOneTask = async (taskId: number) => {
+    setIsLoading(true);
+
+    try {
+      return await fetchOneTask(taskId);
     } catch (error) {
       printError(error);
     } finally {
@@ -59,7 +77,8 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     setIsLoading(true);
 
     try {
-      setTasks((prev) => [{ ...newTask, id: Date.now() }, ...prev]);
+      const taskData = await createOneTask(newTask);
+      setTasks((prev) => [{ ...taskData }, ...prev]);
       toast.success("Successfully created");
     } catch (error) {
       printError(error);
@@ -68,12 +87,22 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
-  const updateTask = async (targetTask: ITask) => {
+  const updateTask = async (taskToUpdate: ITask) => {
     setIsLoading(true);
 
     try {
+      const targetTask = tasks.find(
+        ({ id: taskId }) => taskToUpdate.id === taskId
+      );
+
+      if (!targetTask) {
+        throw new Error("Task not found");
+      }
+
+      await updateOneTask(targetTask.id, { ...targetTask, ...taskToUpdate });
+
       const updatedTasks = tasks.map((task) =>
-        task.id !== targetTask.id ? task : { ...task, ...targetTask }
+        task.id !== targetTask.id ? task : { ...task, ...taskToUpdate }
       );
 
       setTasks(updatedTasks);
@@ -85,11 +114,13 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
-  const deleteTask = async (id: number) => {
+  const deleteTask = async (taskId: number) => {
     setIsLoading(true);
 
     try {
-      setTasks((prev) => prev.filter(({ id: taskId }) => taskId !== id));
+      await deleteOneTask(taskId);
+
+      setTasks((prev) => prev.filter(({ id }) => id !== taskId));
       toast.success("Successfully deleted");
     } catch (error) {
       printError(error);
@@ -99,15 +130,15 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   };
 
   const completedTasks = tasks.filter(
-    ({ isCompleted }) => isCompleted === true
+    ({ is_completed }) => is_completed === true
   );
 
   const incompletedTasks = tasks.filter(
-    ({ isCompleted }) => isCompleted === false
+    ({ is_completed }) => is_completed === false
   );
 
   const importantTasks = tasks.filter(
-    ({ isImportant }) => isImportant === true
+    ({ is_important }) => is_important === true
   );
 
   return (
@@ -124,13 +155,15 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         openModal,
         closeModal,
         collapseMenu,
+        getAllTasks,
+        getOneTask,
         createTask,
         updateTask,
         deleteTask,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>
-        {isLoading ? <p>Loading...</p> : children}
+        {children}
       </GlobalUpdateContext.Provider>
     </GlobalContext.Provider>
   );

@@ -11,7 +11,7 @@ import SearchTask from "../SearchTask/SearchTask";
 import DropdownWrapper from "../Dropdown/DropdownWrapper/DropdownWrapper";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
-  const { isLoading, modal, openModal }: any = useGlobalState();
+  const { modal, openModal }: any = useGlobalState();
   const [filter, setFilter] = useState("");
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -50,34 +50,30 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
         </button>
       </div>
 
-      {!isLoading ? (
-        <ul className="tasks_grid my-4">
-          {filteredTasks?.map(
-            ({ id, title, description, date, isCompleted, isImportant }) => (
-              <TaskItem
-                key={id}
-                id={id}
-                title={title}
-                description={description}
-                date={date}
-                isCompleted={isCompleted}
-                isImportant={isImportant}
-              />
-            )
-          )}
+      <ul className="tasks_grid my-4">
+        {filteredTasks?.map(
+          ({ id, title, description, date, is_completed, is_important }) => (
+            <TaskItem
+              key={id}
+              id={id}
+              title={title}
+              description={description}
+              date={date}
+              is_completed={is_completed}
+              is_important={is_important}
+            />
+          )
+        )}
 
-          <button
-            type="button"
-            className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
-            onClick={() => openModal(null)}
-          >
-            <BsNodePlusFill size="1.6em" />
-            Add New Task
-          </button>
-        </ul>
-      ) : (
-        <p>Loading...</p>
-      )}
+        <button
+          type="button"
+          className="create_task text-colorGrey2 border-colorGrey5 hover:text-colorGrey0 hover:bg-colorGrey5"
+          onClick={() => openModal(null)}
+        >
+          <BsNodePlusFill size="1.6em" />
+          Add New Task
+        </button>
+      </ul>
     </main>
   );
 };

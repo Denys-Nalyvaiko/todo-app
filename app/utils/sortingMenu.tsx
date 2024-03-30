@@ -12,22 +12,22 @@ const sortingMenu: ISortingMenu[] = [
     icon: <FaRegCheckCircle size="14" />,
   },
   {
-    id: "titleAsc",
+    id: "title_asc",
     title: "Title asc",
     icon: <IoArrowUpCircleOutline />,
   },
   {
-    id: "titleDesc",
+    id: "title_desc",
     title: "Title desc",
     icon: <IoArrowDownCircleOutline />,
   },
   {
-    id: "dateAsc",
+    id: "date_asc",
     title: "Date asc",
     icon: <IoArrowUpCircleOutline />,
   },
   {
-    id: "dateDesc",
+    id: "date_desc",
     title: "Date desc",
     icon: <IoArrowDownCircleOutline />,
   },

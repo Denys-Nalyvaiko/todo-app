@@ -10,8 +10,8 @@ const TaskItem = ({
   title,
   description,
   date,
-  isCompleted,
-  isImportant,
+  is_completed,
+  is_important,
 }: ITask) => {
   const { updateTask, deleteTask, openModal }: any = useGlobalState();
 
@@ -28,18 +28,18 @@ const TaskItem = ({
             <button
               type="button"
               className={`completed_button ${
-                isCompleted ? "bg-colorGreenDark" : "bg-colorDanger"
+                is_completed ? "bg-colorGreenDark" : "bg-colorDanger"
               }`}
-              onClick={() => updateTask({ id, isCompleted: !isCompleted })}
+              onClick={() => updateTask({ id, is_completed: !is_completed })}
             >
-              {isCompleted ? "Completed" : "Incompleted"}
+              {is_completed ? "Completed" : "Incompleted"}
             </button>
             <button
               type="button"
-              className={isImportant ? "text-red-400" : ""}
-              onClick={() => updateTask({ id, isImportant: !isImportant })}
+              className={is_important ? "text-red-400" : ""}
+              onClick={() => updateTask({ id, is_important: !is_important })}
             >
-              {isImportant ? (
+              {is_important ? (
                 <MdNotificationImportant size="1.4em" />
               ) : (
                 <MdOutlineNotificationImportant size="1.4em" />

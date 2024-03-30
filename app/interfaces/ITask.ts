@@ -3,8 +3,8 @@ interface ITask {
   title: string;
   description: string;
   date: string;
-  isCompleted: boolean;
-  isImportant: boolean;
+  is_completed: boolean;
+  is_important: boolean;
 }
 
 export default ITask;

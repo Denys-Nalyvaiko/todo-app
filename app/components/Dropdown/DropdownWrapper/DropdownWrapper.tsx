@@ -5,6 +5,7 @@ import DropdownButton from "../DropdownButton/DropdownButton";
 import DropdownContent from "../DropdownContent/DropdownContent";
 import sortingMenu from "@/app/utils/sortingMenu";
 import DropdownItem from "../DropdownItem/DropdownItem";
+import { useGlobalState } from "@/app/context/GlobalProvider";
 
 interface DropdownWrapperProps {
   buttonText: string;
@@ -12,9 +13,18 @@ interface DropdownWrapperProps {
 
 const DropdownWrapper = ({ buttonText }: DropdownWrapperProps) => {
   const [shownDropdown, setShownDropdown] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState("original");
+
+  const { getAllTasks }: any = useGlobalState();
 
   const toggleShownDropdown = () => {
     setShownDropdown((prev) => !prev);
+  };
+
+  const handleSortTasksButtonClick = (sortById: string) => {
+    getAllTasks(sortById);
+    setCurrentOrder(sortById);
+    toggleShownDropdown();
   };
 
   return (
@@ -27,7 +37,14 @@ const DropdownWrapper = ({ buttonText }: DropdownWrapperProps) => {
       </DropdownButton>
       <DropdownContent shownDropdown={shownDropdown}>
         {sortingMenu.map(({ id, title, icon }) => (
-          <DropdownItem key={id} onClick={() => {}}>
+          <DropdownItem
+            key={id}
+            id={id}
+            currentOrder={currentOrder}
+            onClick={() => {
+              handleSortTasksButtonClick(id);
+            }}
+          >
             <span>{icon}</span> {title}
           </DropdownItem>
         ))}
