@@ -15,22 +15,6 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
   const { modal, openModal, isLoading }: any = useGlobalState();
   const [filter, setFilter] = useState("");
 
-  // // ?
-
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-
-  //   const timeout = setTimeout(() => {
-  //     setIsLoading(false);
-  //   }, 4000);
-
-  //   return () => clearTimeout(timeout);
-  // }, []);
-
-  // // ?
-
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
   };
