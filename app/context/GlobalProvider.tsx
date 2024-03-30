@@ -30,7 +30,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
-    getAllTasks();
+    getAllTasks(undefined);
   }, []);
 
   const openModal = (id: number | null) => {
@@ -48,11 +48,11 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     setCollapsed((prev) => !prev);
   };
 
-  const getAllTasks = async () => {
+  const getAllTasks = async (sortBy: string | undefined) => {
     setIsLoading(true);
 
     try {
-      const tasksData = await fetchAllTasks();
+      const tasksData = await fetchAllTasks(sortBy);
       setTasks(tasksData);
     } catch (error) {
       printError(error);
@@ -155,6 +155,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         openModal,
         closeModal,
         collapseMenu,
+        getAllTasks,
         getOneTask,
         createTask,
         updateTask,

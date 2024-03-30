@@ -3,16 +3,30 @@
 import { ChildrenProps } from "@/app/interfaces";
 
 interface DropdownItemProps extends ChildrenProps {
+  id: string;
+  currentOrder: string;
   onClick(): void;
 }
 
-const DropdownItem = ({ children, onClick }: DropdownItemProps) => {
+const DropdownItem = ({
+  children,
+  id,
+  currentOrder,
+  onClick,
+}: DropdownItemProps) => {
   return (
     <li
-      className="p-2 cursor-pointer flex items-center gap-2"
-      onClick={onClick}
+      className={`cursor-pointer w-full transition-all hover:text-colorGrey0 ${
+        currentOrder === id ? "text-colorGrey0" : ""
+      }`}
     >
-      {children}
+      <button
+        type="button"
+        className="w-full h-full flex items-center gap-2 p-2 bg-transparent"
+        onClick={onClick}
+      >
+        {children}
+      </button>
     </li>
   );
 };

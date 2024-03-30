@@ -12,6 +12,7 @@ interface IGlobalContext {
   openModal(id: number | null): void;
   closeModal(): void;
   collapseMenu(): void;
+  getAllTasks(sortBy: string | undefined): void;
   getOneTask(taskId: number): void;
   createTask(task: ITask): void;
   updateTask(task: ITask): void;
