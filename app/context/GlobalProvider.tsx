@@ -62,22 +62,20 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
-  // TODO fill another loading
-
   const getOneTask = async (taskId: number) => {
-    setIsLoading((prev) => ({ ...prev, another: true }));
+    setIsLoading((prev) => ({ ...prev, taskUpsert: true }));
 
     try {
       return await fetchOneTask(taskId);
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading((prev) => ({ ...prev, another: false }));
+      setIsLoading((prev) => ({ ...prev, taskUpsert: false }));
     }
   };
 
   const createTask = async (newTask: ITask) => {
-    setIsLoading((prev) => ({ ...prev, another: true }));
+    setIsLoading((prev) => ({ ...prev, taskUpsert: true }));
 
     try {
       const taskData = await createOneTask(newTask);
@@ -86,12 +84,12 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading((prev) => ({ ...prev, another: false }));
+      setIsLoading((prev) => ({ ...prev, taskUpsert: false }));
     }
   };
 
   const updateTask = async (taskToUpdate: ITask) => {
-    setIsLoading((prev) => ({ ...prev, another: true }));
+    setIsLoading((prev) => ({ ...prev, taskUpsert: true }));
 
     try {
       const targetTask = tasks.find(
@@ -113,12 +111,12 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading((prev) => ({ ...prev, another: false }));
+      setIsLoading((prev) => ({ ...prev, taskUpsert: false }));
     }
   };
 
   const deleteTask = async (taskId: number) => {
-    setIsLoading((prev) => ({ ...prev, another: true }));
+    setIsLoading((prev) => ({ ...prev, taskUpsert: true }));
 
     try {
       await deleteOneTask(taskId);
@@ -128,7 +126,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     } catch (error) {
       printError(error);
     } finally {
-      setIsLoading((prev) => ({ ...prev, another: false }));
+      setIsLoading((prev) => ({ ...prev, taskUpsert: false }));
     }
   };
 

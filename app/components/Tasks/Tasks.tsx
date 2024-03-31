@@ -10,6 +10,7 @@ import UpsertTaskContent from "../Modals/UpsertTaskContent/UpsertTaskContent";
 import SearchTask from "../SearchTask/SearchTask";
 import DropdownWrapper from "../Dropdown/DropdownWrapper/DropdownWrapper";
 import SkeletonTaskLoader from "../Loaders/SkeletonTaskLoader/SkeletonTaskLoader";
+import ClockLoader from "../Loaders/ClockLoader/ClockLoader";
 
 const Tasks = ({ title, tasks }: ITasksProps) => {
   const { modal, openModal, isLoading }: any = useGlobalState();
@@ -27,7 +28,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
   const filteredTasks = updateTasks();
 
   return (
-    <main className="tasks_container bg-colorBg2 border-borderColor2">
+    <main className="tasks_container w-full bg-colorBg2 border-borderColor2">
       {modal && (
         <ModalWrapper>
           <UpsertTaskContent />
@@ -35,6 +36,8 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
       )}
 
       <DropdownWrapper buttonText="Sort By" />
+
+      {isLoading?.taskUpsert && <ClockLoader />}
 
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-extrabold relative max-lg:hidden">

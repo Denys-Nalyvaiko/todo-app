@@ -130,7 +130,7 @@ input[type="checkbox"]:focus {
   }
 
   .tasks_container {
-    @apply px-8 py-4 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
+    @apply relative px-8 py-4 w-full h-full border-2 border-solid rounded-2xl overflow-y-auto;
   }
 
   .create_task {
@@ -208,5 +208,29 @@ input[type="checkbox"]:focus {
     border-top: 3px solid rgba(249, 249, 249, 0.1);
     border-right: 3px solid rgba(249, 249, 249, 0.1);
     border-bottom: 3px solid rgba(249, 249, 249, 0.1);
+  }
+
+  .clock_loader {
+    width: 36px;
+    aspect-ratio: 1;
+    display: flex;
+    border: 3px solid;
+    box-sizing: border-box;
+    border-radius: 50%;
+    margin-left: -2%;
+    background: radial-gradient(circle 2px, currentColor 95%, #0000),
+      linear-gradient(currentColor 50%, #0000 0) 50%/4px 60% no-repeat;
+    animation: l1 2s infinite linear;
+  }
+  .clock_loader:before {
+    content: "";
+    flex: 1;
+    background: linear-gradient(currentColor 50%, #0000 0) 50%/4px 80% no-repeat;
+    animation: inherit;
+  }
+  @keyframes l1 {
+    100% {
+      transform: rotate(1turn);
+    }
   }
 }

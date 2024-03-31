@@ -1,10 +1,8 @@
 import { TypeInitialLoadingProps } from "../interfaces";
 
-// TODO fill another props
-
 const initialLoadingProps: TypeInitialLoadingProps = {
   taskList: false,
-  another: false,
+  taskUpsert: false,
 };
 
 export default initialLoadingProps;
