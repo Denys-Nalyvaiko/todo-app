@@ -4,12 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
 import initialLoadingProps from "../utils/initialLoadingPorps";
-import {
-  ChildrenProps,
-  IGlobalContext,
-  IGlobalUpdateContext,
-  ITask,
-} from "../interfaces";
+import { ChildrenProps, IGlobalContext, ITask } from "../interfaces";
 import {
   createOneTask,
   deleteOneTask,
@@ -19,9 +14,6 @@ import {
 } from "../data/services";
 
 export const GlobalContext = createContext<IGlobalContext | null>(null);
-export const GlobalUpdateContext = createContext<IGlobalUpdateContext | null>(
-  null
-);
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
@@ -163,12 +155,9 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         deleteTask,
       }}
     >
-      <GlobalUpdateContext.Provider value={{}}>
-        {children}
-      </GlobalUpdateContext.Provider>
+      {children}
     </GlobalContext.Provider>
   );
 };
 
 export const useGlobalState = () => useContext(GlobalContext);
-export const useGlobalUpdate = () => useContext(GlobalUpdateContext);
