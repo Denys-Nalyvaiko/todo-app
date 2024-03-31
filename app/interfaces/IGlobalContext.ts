@@ -1,3 +1,4 @@
+import TypeInitialLoadingProps from "./TypeInitialLoadingProps";
 import ITask from "./ITask";
 
 interface IGlobalContext {
@@ -6,7 +7,7 @@ interface IGlobalContext {
   completedTasks: ITask[];
   incompletedTasks: ITask[];
   importantTasks: ITask[];
-  isLoading: boolean;
+  isLoading: TypeInitialLoadingProps;
   modal: boolean;
   collapsed: boolean;
   openModal(id: number | null): void;
