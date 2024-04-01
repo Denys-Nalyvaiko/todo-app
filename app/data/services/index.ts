@@ -1,8 +1,8 @@
-export { default as fetchAllTasks } from "./fetchAllTasks";
-export { default as fetchOneTask } from "./fetchOneTask";
-export { default as createOneTask } from "./createOneTask";
-export { default as updateOneTask } from "./updateOneTask";
-export { default as deleteOneTask } from "./deleteOneTask";
-export { default as registerUserService } from "./registerUserService";
-export { default as loginUserService } from "./loginUserService";
-export { default as logoutUserService } from "./logoutUserService";
+export { default as fetchAllTasks } from "./tasks/fetchAllTasks";
+export { default as fetchOneTask } from "./tasks/fetchOneTask";
+export { default as createOneTask } from "./tasks/createOneTask";
+export { default as updateOneTask } from "./tasks/updateOneTask";
+export { default as deleteOneTask } from "./tasks/deleteOneTask";
+export { default as registerUserService } from "./auth/registerUserService";
+export { default as loginUserService } from "./auth/loginUserService";
+export { default as logoutUserService } from "./auth/logoutUserService";
