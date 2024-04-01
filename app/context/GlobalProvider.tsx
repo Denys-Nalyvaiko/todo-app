@@ -12,6 +12,7 @@ import {
   fetchAllTasks,
   fetchOneTask,
   loginUserService,
+  logoutUserService,
   registerUserService,
   updateOneTask,
 } from "../data/services";
@@ -68,10 +69,15 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     }
   };
 
-  const logoutUser = () => {
-    // TODO configure logout user service
-    token.unset();
-    toggleLoggedIn(false);
+  const logoutUser = async () => {
+    try {
+      await logoutUserService();
+
+      token.unset();
+      toggleLoggedIn(false);
+    } catch (error) {
+      printError(error);
+    }
   };
 
   const getAllTasks = async (sortBy: string | undefined) => {

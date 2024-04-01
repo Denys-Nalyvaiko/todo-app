@@ -5,6 +5,7 @@ const API = Object.freeze({
     AUTH: Object.freeze({
       REGISTER: "/auth/register",
       LOGIN: "/auth/login",
+      LOGOUT: "/auth/logout",
     }),
     USERS: Object.freeze({
       CURRENT: "/current",
