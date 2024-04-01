@@ -1,8 +1,9 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
+import token from "../helpers/tokenSetter";
 import initialLoadingProps from "../utils/initialLoadingPorps";
 import { ChildrenProps, IGlobalContext, ITask } from "../interfaces";
 import {
@@ -10,21 +11,26 @@ import {
   deleteOneTask,
   fetchAllTasks,
   fetchOneTask,
+  loginUserService,
+  registerUserService,
   updateOneTask,
 } from "../data/services";
+import RegisterUserDto from "../data/dto/RegisterUserDto";
+import LoginUserDto from "../data/dto/LoginUserDto";
 
 export const GlobalContext = createContext<IGlobalContext | null>(null);
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [modalTask, setModalTask] = useState<ITask | undefined>();
   const [isLoading, setIsLoading] = useState(initialLoadingProps);
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
 
-  useEffect(() => {
-    getAllTasks(undefined);
-  }, []);
+  const toggleLoggedIn = (option: boolean) => {
+    setIsLoggedIn(option);
+  };
 
   const openModal = (id: number | null) => {
     const targetTask = tasks.find(({ id: taskId }) => taskId === id);
@@ -39,6 +45,33 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
   const collapseMenu = () => {
     setCollapsed((prev) => !prev);
+  };
+
+  const registerUser = async (userData: RegisterUserDto) => {
+    try {
+      const user = await registerUserService(userData);
+      await loginUser({ email: user.email, password: userData.password });
+    } catch (error) {
+      printError(error);
+    }
+  };
+
+  const loginUser = async (userData: LoginUserDto) => {
+    try {
+      const user = await loginUserService(userData);
+      token.set(user.access_token);
+      toggleLoggedIn(true);
+
+      return user;
+    } catch (error) {
+      printError(error);
+    }
+  };
+
+  const logoutUser = () => {
+    // TODO configure logout user service
+    token.unset();
+    toggleLoggedIn(false);
   };
 
   const getAllTasks = async (sortBy: string | undefined) => {
@@ -138,6 +171,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     <GlobalContext.Provider
       value={{
         tasks,
+        isLoggedIn,
         modalTask,
         isLoading,
         completedTasks,
@@ -145,9 +179,13 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         importantTasks,
         modal,
         collapsed,
+        toggleLoggedIn,
         openModal,
         closeModal,
         collapseMenu,
+        registerUser,
+        loginUser,
+        logoutUser,
         getAllTasks,
         getOneTask,
         createTask,

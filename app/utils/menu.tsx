@@ -9,25 +9,25 @@ const menu: IMenu[] = [
     id: 1,
     title: "All Tasks",
     icon: <FaHome />,
-    link: "/",
+    link: "/home",
   },
   {
     id: 2,
     title: "Important",
     icon: <FaListUl />,
-    link: "/important",
+    link: "/home/important",
   },
   {
     id: 3,
     title: "Completed",
     icon: <FaCalendarCheck />,
-    link: "/completed",
+    link: "/home/completed",
   },
   {
     id: 4,
     title: "Do It Now",
     icon: <LuListTodo />,
-    link: "/incompleted",
+    link: "/home/incompleted",
   },
 ];
 
