@@ -1,33 +1,40 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
 import token from "../helpers/tokenSetter";
 import initialLoadingProps from "../utils/initialLoadingPorps";
+import RegisterUserDto from "../data/dto/RegisterUserDto";
+import LoginUserDto from "../data/dto/LoginUserDto";
 import { ChildrenProps, IGlobalContext, ITask } from "../interfaces";
+import { LS_KEYS } from "../constants";
 import {
   createOneTask,
   deleteOneTask,
   fetchAllTasks,
   fetchOneTask,
+  getCurrentUserService,
   loginUserService,
   logoutUserService,
   registerUserService,
   updateOneTask,
 } from "../data/services";
-import RegisterUserDto from "../data/dto/RegisterUserDto";
-import LoginUserDto from "../data/dto/LoginUserDto";
 
 export const GlobalContext = createContext<IGlobalContext | null>(null);
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [modalTask, setModalTask] = useState<ITask | undefined>();
   const [isLoading, setIsLoading] = useState(initialLoadingProps);
+  const [modalTask, setModalTask] = useState<ITask | undefined>();
   const [modal, setModal] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
+
+  useEffect(() => {
+    getCurrentUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const toggleLoggedIn = (option: boolean) => {
     setIsLoggedIn(option);
@@ -63,6 +70,8 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       token.set(user.access_token);
       toggleLoggedIn(true);
 
+      localStorage.setItem(LS_KEYS.ACCESS_TOKEN, user.access_token);
+
       return user;
     } catch (error) {
       printError(error);
@@ -75,8 +84,32 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
       token.unset();
       toggleLoggedIn(false);
+
+      localStorage.setItem(LS_KEYS.ACCESS_TOKEN, "");
     } catch (error) {
       printError(error);
+    }
+  };
+
+  const getCurrentUser = async () => {
+    setIsLoading((prev) => ({ ...prev, auth: true }));
+    const accessToken = localStorage.getItem(LS_KEYS.ACCESS_TOKEN) ?? "";
+
+    if (!accessToken) {
+      return;
+    }
+
+    token.set(accessToken);
+
+    try {
+      const user = await getCurrentUserService();
+
+      token.set(user.access_token);
+      toggleLoggedIn(true);
+    } catch (error) {
+      printError(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, auth: false }));
     }
   };
 
@@ -192,6 +225,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
         registerUser,
         loginUser,
         logoutUser,
+        getCurrentUser,
         getAllTasks,
         getOneTask,
         createTask,

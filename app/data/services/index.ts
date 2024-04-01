@@ -6,3 +6,4 @@ export { default as deleteOneTask } from "./tasks/deleteOneTask";
 export { default as registerUserService } from "./auth/registerUserService";
 export { default as loginUserService } from "./auth/loginUserService";
 export { default as logoutUserService } from "./auth/logoutUserService";
+export { default as getCurrentUserService } from "./user/getCurrentUserService";

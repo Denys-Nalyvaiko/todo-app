@@ -8,7 +8,7 @@ const API = Object.freeze({
       LOGOUT: "/auth/logout",
     }),
     USERS: Object.freeze({
-      CURRENT: "/current",
+      CURRENT: "/users/current",
     }),
     TASKS: "/tasks",
   }),

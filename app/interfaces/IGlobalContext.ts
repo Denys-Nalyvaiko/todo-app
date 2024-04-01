@@ -20,6 +20,7 @@ interface IGlobalContext {
   registerUser(userData: RegisterUserDto): void;
   loginUser(userData: LoginUserDto): void;
   logoutUser(): void;
+  getCurrentUser(): void;
   getAllTasks(sortBy: string | undefined): void;
   getOneTask(taskId: number): void;
   createTask(task: ITask): void;

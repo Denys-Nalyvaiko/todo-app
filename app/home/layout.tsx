@@ -8,13 +8,17 @@ import { useGlobalState } from "../context/GlobalProvider";
 
 const HomeLayout = ({ children }: ChildrenProps) => {
   const router = useRouter();
-  const { isLoggedIn }: any = useGlobalState();
+  const { isLoggedIn, isLoading }: any = useGlobalState();
 
   useLayoutEffect(() => {
-    if (!isLoggedIn) {
+    console.log("IS LOGGED IN: ", isLoggedIn);
+    console.log("ISLOADING: ", isLoading.auth);
+
+    if (!isLoggedIn && !isLoading.auth) {
       router.push("/auth/login");
+      return;
     }
-  }, [router, isLoggedIn]);
+  }, [router, isLoggedIn, isLoading]);
 
   return (
     <>
