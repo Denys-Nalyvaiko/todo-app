@@ -54,7 +54,7 @@ const Tasks = ({ title, tasks }: ITasksProps) => {
         </button>
       </div>
 
-      {!isLoading?.taskList ? (
+      {!isLoading?.taskList && !isLoading?.auth ? (
         <ul className="tasks_grid my-4">
           {filteredTasks?.map(
             ({ id, title, description, date, is_completed, is_important }) => (

@@ -59,15 +59,21 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   };
 
   const registerUser = async (userData: RegisterUserDto) => {
+    setIsLoading((prev) => ({ ...prev, auth: true }));
+
     try {
       const user = await registerUserService(userData);
       await loginUser({ email: user.email, password: userData.password });
     } catch (error) {
       printError(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, auth: false }));
     }
   };
 
   const loginUser = async (userData: LoginUserDto) => {
+    setIsLoading((prev) => ({ ...prev, auth: true }));
+
     try {
       const user = await loginUserService(userData);
       token.set(user.access_token);
@@ -80,10 +86,14 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       return user;
     } catch (error) {
       printError(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, auth: false }));
     }
   };
 
   const logoutUser = async () => {
+    setIsLoading((prev) => ({ ...prev, auth: true }));
+
     try {
       await logoutUserService();
 
@@ -94,6 +104,8 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       localStorage.setItem(LS_KEYS.ACCESS_TOKEN, "");
     } catch (error) {
       printError(error);
+    } finally {
+      setIsLoading((prev) => ({ ...prev, auth: false }));
     }
   };
 
