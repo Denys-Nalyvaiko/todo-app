@@ -4,6 +4,7 @@ import RegisterUserDto from "../data/dto/RegisterUserDto";
 import LoginUserDto from "../data/dto/LoginUserDto";
 
 interface IGlobalContext {
+  username: string;
   tasks: ITask[];
   isLoggedIn: boolean;
   modalTask: ITask | undefined;

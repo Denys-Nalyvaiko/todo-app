@@ -27,6 +27,7 @@ export const GlobalContext = createContext<IGlobalContext | null>(null);
 export const GlobalProvider = ({ children }: ChildrenProps) => {
   const router = useRouter();
 
+  const [username, setUsername] = useState("Username");
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(initialLoadingProps);
@@ -77,6 +78,8 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     try {
       const user = await loginUserService(userData);
       token.set(user.access_token);
+
+      setUsername(user.user.username);
       toggleLoggedIn(true);
 
       localStorage.setItem(LS_KEYS.ACCESS_TOKEN, user.access_token);
@@ -123,9 +126,11 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
     try {
       const user = await getCurrentUserService();
-
       token.set(user.access_token);
+
+      setUsername(user.user.username);
       toggleLoggedIn(true);
+
       router.push("/home");
     } catch (error) {
       router.push("/auth/login");
@@ -230,6 +235,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
   return (
     <GlobalContext.Provider
       value={{
+        username,
         tasks,
         isLoggedIn,
         modalTask,
