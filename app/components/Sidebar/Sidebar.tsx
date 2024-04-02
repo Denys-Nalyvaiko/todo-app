@@ -13,7 +13,8 @@ import { useGlobalState } from "@/app/context/GlobalProvider";
 const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { collapsed, collapseMenu, logoutUser }: any = useGlobalState();
+  const { username, collapsed, collapseMenu, logoutUser }: any =
+    useGlobalState();
 
   const handleNavigationItemClick = (link: string) => {
     router.push(link);
@@ -45,10 +46,9 @@ const Sidebar = () => {
               className="w-auto h-auto"
             />
           </div>
-          <h1 className="text-sm flex flex-col relative z-1">
-            <span>User</span>
-            <span>Name</span>
-          </h1>
+          <h3 className="text-sm flex flex-col relative z-1 capitalize">
+            {username}
+          </h3>
         </div>
       </div>
       <ul>
