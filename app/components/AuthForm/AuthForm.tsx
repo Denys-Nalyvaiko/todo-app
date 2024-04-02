@@ -7,10 +7,11 @@ import {
   SetStateAction,
   FormEvent,
 } from "react";
+import Link from "next/link";
 import { useGlobalState } from "@/app/context/GlobalProvider";
 import RegisterUserDto from "@/app/data/dto/RegisterUserDto";
 import LoginUserDto from "@/app/data/dto/LoginUserDto";
-import Link from "next/link";
+import ClockLoader from "../Loaders/ClockLoader/ClockLoader";
 
 const REGISTER = "register";
 
@@ -19,7 +20,7 @@ interface AuthFormProps {
 }
 
 const AuthForm = ({ type }: AuthFormProps) => {
-  const { registerUser, loginUser }: any = useGlobalState();
+  const { registerUser, loginUser, isLoading }: any = useGlobalState();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -54,13 +55,13 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
   return (
     <section className="m-auto">
+      {isLoading?.auth && <ClockLoader />}
       <Link
         href="/"
         className="absolute top-20 left-20 text-colorGrey2 hover:text-colorGrey1 transition-all hover:underline"
       >
         Go back
       </Link>
-
       <form
         action="submit"
         className="relative h-full shadow-md rounded-2xl flex flex-col justify-center m-auto text-colorGrey1"
@@ -111,7 +112,8 @@ const AuthForm = ({ type }: AuthFormProps) => {
         <div className="flex justify-end mb-8">
           <button
             type="submit"
-            className="submit_button bg-slate-300 text-gray-700 border-gray-700 hover:bg-gray-700 hover:text-slate-300 hover:border-slate-300"
+            disabled={isLoading?.auth ? true : false}
+            className="submit_button bg-slate-300 text-gray-700 border-gray-700 hover:bg-gray-700 hover:text-slate-300 hover:border-slate-300 disabled:bg-gray-700 disabled:text-gray-600"
           >
             {type === REGISTER ? "Register" : "Login"}
           </button>
