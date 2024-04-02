@@ -107,7 +107,6 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       token.set(user.access_token);
       toggleLoggedIn(true);
     } catch (error) {
-      printError(error);
     } finally {
       setIsLoading((prev) => ({ ...prev, auth: false }));
     }
