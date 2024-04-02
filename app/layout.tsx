@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./style/globals.css";
-import Sidebar from "./components/Sidebar/Sidebar";
 import ContextProvider from "./providers/ContextProvider";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 
@@ -21,10 +20,7 @@ const RootLayout = ({
     <html lang="en">
       <body className={inter.className}>
         <ContextProvider>
-          <GlobalStyleProvider>
-            <Sidebar />
-            {children}
-          </GlobalStyleProvider>
+          <GlobalStyleProvider>{children}</GlobalStyleProvider>
         </ContextProvider>
       </body>
     </html>

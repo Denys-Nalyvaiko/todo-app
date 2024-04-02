@@ -1,7 +1,7 @@
 "use client";
 
-import { useGlobalState } from "../context/GlobalProvider";
-import Tasks from "../components/Tasks/Tasks";
+import { useGlobalState } from "../../context/GlobalProvider";
+import Tasks from "../../components/Tasks/Tasks";
 
 const Incomplete = () => {
   const { incompletedTasks }: any = useGlobalState();

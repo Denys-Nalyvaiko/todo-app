@@ -1,12 +1,5 @@
-"use client";
+import Welcome from "./components/Welcome/Welcome";
 
-import Tasks from "./components/Tasks/Tasks";
-import { useGlobalState } from "./context/GlobalProvider";
+const WelcomePage = () => <Welcome />;
 
-const Home = () => {
-  const { tasks }: any = useGlobalState();
-
-  return <Tasks tasks={tasks} title={"All Tasks"} />;
-};
-
-export default Home;
+export default WelcomePage;

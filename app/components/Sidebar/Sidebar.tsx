@@ -13,7 +13,7 @@ import { useGlobalState } from "@/app/context/GlobalProvider";
 const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { collapsed, collapseMenu }: any = useGlobalState();
+  const { collapsed, collapseMenu, logoutUser }: any = useGlobalState();
 
   const handleNavigationItemClick = (link: string) => {
     router.push(link);
@@ -72,6 +72,7 @@ const Sidebar = () => {
       <button
         type="button"
         className="signout_button text-gray-300 hover:text-gray-100"
+        onClick={logoutUser}
       >
         <PiSignOutBold /> Sign out
       </button>
