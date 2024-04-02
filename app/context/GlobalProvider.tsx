@@ -114,6 +114,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     const accessToken = localStorage.getItem(LS_KEYS.ACCESS_TOKEN) ?? "";
 
     if (!accessToken) {
+      setIsLoading((prev) => ({ ...prev, auth: false }));
       router.push("/auth/login");
       return;
     }
