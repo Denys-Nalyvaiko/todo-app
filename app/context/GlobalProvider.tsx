@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import printError from "../helpers/printError";
 import token from "../helpers/tokenSetter";
@@ -24,6 +25,8 @@ import {
 export const GlobalContext = createContext<IGlobalContext | null>(null);
 
 export const GlobalProvider = ({ children }: ChildrenProps) => {
+  const router = useRouter();
+
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(initialLoadingProps);
@@ -71,6 +74,8 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
       toggleLoggedIn(true);
 
       localStorage.setItem(LS_KEYS.ACCESS_TOKEN, user.access_token);
+
+      router.push("/home");
 
       return user;
     } catch (error) {
