@@ -89,6 +89,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
       token.unset();
       toggleLoggedIn(false);
+      router.push("/auth/login");
 
       localStorage.setItem(LS_KEYS.ACCESS_TOKEN, "");
     } catch (error) {
@@ -101,6 +102,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
     const accessToken = localStorage.getItem(LS_KEYS.ACCESS_TOKEN) ?? "";
 
     if (!accessToken) {
+      router.push("/auth/login");
       return;
     }
 
@@ -111,7 +113,9 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
       token.set(user.access_token);
       toggleLoggedIn(true);
+      router.push("/home");
     } catch (error) {
+      router.push("/auth/login");
     } finally {
       setIsLoading((prev) => ({ ...prev, auth: false }));
     }
