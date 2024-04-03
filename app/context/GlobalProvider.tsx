@@ -118,7 +118,7 @@ export const GlobalProvider = ({ children }: ChildrenProps) => {
 
     if (!accessToken) {
       setIsLoading((prev) => ({ ...prev, auth: false }));
-      router.push("/auth/login");
+      router.push("/");
       return;
     }
 
